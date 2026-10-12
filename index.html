@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en"<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERDEFEND</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:#000;
+  color:#fff;
+  line-height:1.6;
+}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:70px;
+  padding:0 7%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#050505;
+  border-bottom:1px solid #063cff;
+  box-shadow:0 0 20px #063cff44;
+}
+
+.logo{
+  color:#1677ff;
+  font-size:25px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+nav ul{
+  display:flex;
+  gap:25px;
+  list-style:none;
+}
+
+nav a{
+  color:#bbb;
+  text-decoration:none;
+  transition:.3s;
+}
+
+nav a:hover{color:#1680ff}
+
+.hero{
+  min-height:620px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:70px 20px;
+  background:
+    radial-gradient(circle,#061b45 0%,#020817 35%,#000 70%);
+}
+
+.hero small{
+  color:#1680ff;
+  letter-spacing:3px;
+  font-weight:bold;
+}
+
+.hero h1{
+  margin:15px 0 5px;
+  font-size:clamp(45px,8vw,85px);
+  color:#1677ff;
+  text-shadow:0 0 30px #126cff;
+}
+
+.hero h2{
+  font-size:clamp(25px,4vw,45px);
+}
+
+.hero p{
+  max-width:650px;
+  margin:20px auto;
+  color:#aaa;
+}
+
+.btn{
+  display:inline-block;
+  margin:8px;
+  padding:13px 25px;
+  border-radius:6px;
+  background:#0969ff;
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  border:1px solid #1680ff;
+  box-shadow:0 0 15px #0969ff55;
+  transition:.3s;
+}
+
+.btn:hover{
+  background:#1680ff;
+  box-shadow:0 0 25px #1680ff;
+  transform:translateY(-2px);
+}
+
+.btn.outline{
+  background:transparent;
+}
+
+section{
+  padding:75px 7%;
+}
+
+.title{
+  text-align:center;
+  margin-bottom:45px;
+}
+
+.title h2{
+  font-size:36px;
+  color:#1680ff;
+  text-shadow:0 0 12px #126cff77;
+}
+
+.title p{
+  color:#888;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#050505;
+  border:1px solid #092b72;
+  border-radius:12px;
+  padding:25px;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-7px);
+  border-color:#1680ff;
+  box-shadow:0 0 25px #0969ff33;
+}
+
+.card .icon{
+  font-size:32px;
+}
+
+.card h3{
+  margin:12px 0;
+  color:#fff;
+}
+
+.card p{
+  color:#999;
+}
+
+.partners{
+  background:#030711;
+  text-align:center;
+  border-top:1px solid #071b46;
+  border-bottom:1px solid #071b46;
+}
+
+.partner-list{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:45px;
+  color:#52627d;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.roadmap{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+}
+
+.step{
+  width:175px;
+  padding:22px 10px;
+  text-align:center;
+  background:#050505;
+  border:1px solid #0b3b99;
+  border-radius:10px;
+}
+
+.step b{
+  display:block;
+  color:#1680ff;
+  font-size:24px;
+}
+
+.banner{
+  text-align:center;
+  background:
+    linear-gradient(90deg,#000,#031538,#000);
+  border-top:1px solid #092b72;
+  border-bottom:1px solid #092b72;
+}
+
+.banner h2{
+  font-size:38px;
+  color:#1680ff;
+}
+
+.faq{
+  max-width:800px;
+  margin:auto;
+}
+
+details{
+  margin:10px 0;
+  padding:18px;
+  background:#050505;
+  border:1px solid #092b72;
+  border-radius:8px;
+}
+
+summary{
+  cursor:pointer;
+  color:#1680ff;
+  font-weight:bold;
+}
+
+details p{
+  margin-top:10px;
+  color:#999;
+}
+
+.contact{
+  max-width:600px;
+  margin:auto;
+}
+
+input,textarea{
+  width:100%;
+  margin:8px 0;
+  padding:14px;
+  color:#fff;
+  background:#050505;
+  border:1px solid #092b72;
+  border-radius:7px;
+  outline:none;
+}
+
+input:focus,textarea:focus{
+  border-color:#1680ff;
+  box-shadow:0 0 10px #0969ff44;
+}
+
+textarea{
+  height:130px;
+  resize:none;
+}
+
+footer{
+  padding:30px;
+  text-align:center;
+  color:#666;
+  background:#020202;
+  border-top:1px solid #092b72;
+}
+
+@media(max-width:700px){
+  nav ul{display:none}
+  nav{padding:0 5%}
+  section{padding:55px 5%}
+  .hero{min-height:550px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">CYBERDEFEND</div>
+
+  <ul>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#labs">Labs</a></li>
+    <li><a href="#roadmap">Roadmaps</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <small>⚡ NEXT-GEN CYBERSECURITY EDUCATION</small>
+
+    <h1>CYBERDEFEND</h1>
+
+    <h2>Build Real-World Cybersecurity Skills</h2>
+
+    <p>
+      Learn cybersecurity through hands-on labs, real projects,
+      expert mentorship and career-focused learning.
+    </p>
+
+    <a href="#courses" class="btn">Explore Courses</a>
+    <a href="#contact" class="btn outline">Talk to an Expert</a>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="title">
+    <h2>Trusted By / Partners</h2>
+  </div>
+
+  <div class="partner-list">
+    <span>TECHCORP</span>
+    <span>SECURENET</span>
+    <span>CYBERLAB</span>
+    <span>CLOUDX</span>
+    <span>INFOTECH</span>
+  </div>
+</section>
+
+<!-- WHY -->
+<section>
+  <div class="title">
+    <h2>Why CyberDefend?</h2>
+    <p>Learn cybersecurity by actually doing it.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="icon">🧪</div>
+      <h3>Hands-on Labs</h3>
+      <p>Practice cybersecurity concepts in realistic environments.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">👨‍💻</div>
+      <h3>Expert Mentorship</h3>
+      <p>Learn from experienced cybersecurity professionals.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🚀</div>
+      <h3>Real Projects</h3>
+      <p>Build practical projects for your cybersecurity portfolio.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🎯</div>
+      <h3>Career-Focused Learning</h3>
+      <p>Develop skills aligned with real cybersecurity careers.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="title">
+    <h2>Popular Courses</h2>
+    <p>Choose your cybersecurity learning path.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="icon">🛡️</div>
+      <h3>Cybersecurity Fundamentals</h3>
+      <p>Networks, threats, security principles and defense.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📊</div>
+      <h3>SOC Analyst</h3>
+      <p>Learn monitoring, SIEM and incident response concepts.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">⚔️</div>
+      <h3>Ethical Hacking</h3>
+      <p>Learn penetration testing and security assessment.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔍</div>
+      <h3>VAPT</h3>
+      <p>Understand vulnerability assessment and penetration testing.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">☁️</div>
+      <h3>Cloud Security</h3>
+      <p>Learn security concepts for modern cloud environments.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="title">
+    <h2>Learning Roadmaps</h2>
+    <p>Build your cybersecurity skills step by step.</p>
+  </div>
+
+  <div class="roadmap">
+    <div class="step"><b>01</b>Networking</div>
+    <div class="step"><b>02</b>Linux</div>
+    <div class="step"><b>03</b>Cybersecurity</div>
+    <div class="step"><b>04</b>Ethical Hacking</div>
+    <div class="step"><b>05</b>Specialization</div>
+  </div>
+</section>
+
+<!-- LABS -->
+<section id="labs">
+  <div class="title">
+    <h2>Cyber Labs</h2>
+    <p>Turn knowledge into practical cybersecurity skills.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🌐 Network Defense Lab</h3>
+      <p>Practice network security and defensive concepts.</p>
+    </div>
+
+    <div class="card">
+      <h3>🚨 SOC Simulation</h3>
+      <p>Investigate simulated security alerts.</p>
+    </div>
+
+    <div class="card">
+      <h3>🔐 Web Security Lab</h3>
+      <p>Learn secure web application concepts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section>
+  <div class="title">
+    <h2>Student Projects</h2>
+    <p>Build projects that prove your skills.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🔐 Secure Login System</h3>
+      <p>Authentication and application security project.</p>
+    </div>
+
+    <div class="card">
+      <h3>📡 Network Monitor</h3>
+      <p>Monitor network activity and security events.</p>
+    </div>
+
+    <div class="card">
+      <h3>🚨 Threat Detection</h3>
+      <p>Build a basic threat detection project.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS -->
+<section class="banner">
+  <h2>Student Success Stories</h2>
+  <p>From beginners to cybersecurity professionals.</p>
+  <br>
+  <a href="#contact" class="btn">Start Your Journey</a>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section>
+  <div class="title">
+    <h2>Certifications</h2>
+    <p>Validate your cybersecurity knowledge.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>CyberDefend Certified</h3>
+      <p>Foundation-level cybersecurity certification.</p>
+    </div>
+
+    <div class="card">
+      <h3>SOC Analyst Certificate</h3>
+      <p>Demonstrate SOC and monitoring knowledge.</p>
+    </div>
+
+    <div class="card">
+      <h3>VAPT Certificate</h3>
+      <p>Showcase vulnerability assessment skills.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CORPORATE -->
+<section>
+  <div class="title">
+    <h2>Corporate Cybersecurity Services</h2>
+    <p>Security solutions for modern organizations.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Security Assessment</h3>
+      <p>Identify security weaknesses and risks.</p>
+    </div>
+
+    <div class="card">
+      <h3>Employee Training</h3>
+      <p>Improve cybersecurity awareness.</p>
+    </div>
+
+    <div class="card">
+      <h3>Security Consulting</h3>
+      <p>Develop practical security strategies.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="title">
+    <h2>Cybersecurity Blog</h2>
+    <p>Explore cybersecurity knowledge and trends.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>What is Phishing?</h3>
+      <p>Understand common social engineering threats.</p>
+    </div>
+
+    <div class="card">
+      <h3>What is a SOC?</h3>
+      <p>Learn how Security Operations Centers work.</p>
+    </div>
+
+    <div class="card">
+      <h3>Cloud Security Basics</h3>
+      <p>Explore fundamental cloud security concepts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="title">
+    <h2>FAQ</h2>
+  </div>
+
+  <div class="faq">
+
+    <details>
+      <summary>Do I need coding experience?</summary>
+      <p>No. Beginners can start with the fundamentals.</p>
+    </details>
+
+    <details>
+      <summary>Are the courses practical?</summary>
+      <p>Yes. The platform focuses on labs and projects.</p>
+    </details>
+
+    <details>
+      <summary>Can students join?</summary>
+      <p>Yes. Learning paths are available for different skill levels.</p>
+    </details>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="title">
+    <h2>Contact / Enroll</h2>
+    <p>Start building your cybersecurity journey.</p>
+  </div>
+
+  <div class="contact">
+    <input type="text" placeholder="Your Name">
+    <input type="email" placeholder="Email Address">
+    <textarea placeholder="What do you want to learn?"></textarea>
+
+    <button class="btn" onclick="submitForm()">Submit</button>
+  </div>
+</section>
+
+<footer>
+  © 2026 CYBERDEFEND — Learn. Practice. Defend.
+</footer>
+
+<script>
+function submitForm(){
+  alert("Thanks! Your request has been submitted.");
+}
+</script>
+<script>
+fetch("/api/courses")
+  .then(response => response.json())
+  .then(courses => {
+
+    const courseCards = document.querySelectorAll("#courses .card");
+
+    courses.forEach((course, index) => {
+
+      if (courseCards[index]) {
+
+        courseCards[index].querySelector("h3").textContent =
+          course.name;
+
+        courseCards[index].querySelector("p").textContent =
+          "Level: " + course.level;
+
+        courseCards[index].style.cursor = "pointer";
+
+        courseCards[index].onclick = function() {
+          window.location.href = "/course.html?id=" + course.id;
+        };
+
+      }
+
+    });
+
+  })
+  .catch(error => {
+    console.error("Course API error:", error);
+  });
+</script>
+</body>
+</html>
