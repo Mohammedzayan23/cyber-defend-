@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phishing Detective | CYBERDEFEND</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;padding:20px;
+  background:#07111f;color:#e5efff;
+  font-family:Arial,sans-serif;
+}
+main{max-width:700px;margin:30px auto}
+h1{color:#38bdf8}
+.card{
+  background:#101f33;padding:20px;
+  border:1px solid #244766;border-radius:14px;
+  margin:18px 0;
+}
+.email{background:#091522;padding:15px;border-radius:8px}
+button{
+  display:block;width:100%;padding:12px;
+  margin:10px 0;border:1px solid #38bdf8;
+  border-radius:8px;background:#122b43;
+  color:white;text-align:left;cursor:pointer;
+}
+button:hover{background:#164e70}
+#result{line-height:1.6}
+a{color:#38bdf8}
+</style>
+</head>
+<body>
+<main>
+<a href="/">← Back to CYBERDEFEND</a>
+<h1>🎣 Phishing Detective</h1>
+<p>Beginner Lab · Email Security · Score out of 3</p>
+
+<div class="card">
+<h2>Your mission</h2>
+<p>Inspect this fictional email and identify warning signs.
+This is a training example, not a real message.</p>
+<div class="email">
+<strong>From:</strong> security@example.invalid<br>
+<strong>Subject:</strong> URGENT! Your account will close!<br><br>
+Your account will be suspended in 10 minutes.
+Click the link below to verify your password immediately.
+</div>
+</div>
+
+<div id="quiz" class="card">
+<h2 id="question"></h2>
+<div id="answers"></div>
+<p id="feedback" aria-live="polite"></p>
+<button id="next" hidden onclick="nextQuestion()">
+Next question →
+</button>
+</div>
+
+<div class="card">
+<h2>Lab result</h2>
+<p id="result">Complete all three questions to see your score.</p>
+<button id="restart" hidden onclick="startLab()">
+Try again
+</button>
+</div>
+
+<script>
+const questions = [
+ {
+  q:"1. What is the biggest warning sign?",
+  a:["The urgent threat of account closure",
+     "The email has a subject",
+     "It contains a greeting"],
+  correct:0,
+  why:"Urgent threats pressure people into acting without checking."
+ },
+ {
+  q:"2. The email asks you to verify your password. What should you do?",
+  a:["Reply with your password",
+     "Use the message link immediately",
+     "Visit the official site independently or contact support"],
+  correct:2,
+  why:"Never share your password through an email link. Verify through a trusted channel."
+ },
+ {
+  q:"3. What should you check before trusting a message?",
+  a:["Sender details and the destination of links",
+     "Only the email's colors",
+     "How many capital letters it uses"],
+  correct:0,
+  why:"Check the sender and link destination carefully; suspicious details can indicate phishing."
+ }
+];
+
+let index=0, score=0, answered=false;
+
+function startLab(){
+ index=0;
+ score=0;
+ document.getElementById("restart").hidden=true;
+ document.getElementById("result").textContent=
+   "Complete all three questions to see your score.";
+ showQuestion();
+}
+
+function showQuestion(){
+ answered=false;
+ const item=questions[index];
+ document.getElementById("question").textContent=item.q;
+ document.getElementById("feedback").textContent="";
+ document.getElementById("next").hidden=true;
+ const area=document.getElementById("answers");
+ area.replaceChildren();
+
+ item.a.forEach((answer,i)=>{
+   const button=document.createElement("button");
+   button.textContent=answer;
+   button.onclick=()=>checkAnswer(i);
+   area.appendChild(button);
+ });
+}
+
+function checkAnswer(choice){
+ if(answered)return;
+ answered=true;
+ const item=questions[index];
+
+ if(choice===item.correct)score++;
+
+ document.getElementById("feedback").textContent=
+   (choice===item.correct?"Correct! ":"Not quite. ")+item.why;
+
+ document.querySelectorAll("#answers button").forEach(b=>{
+   b.disabled=true;
+ });
+
+ document.getElementById("next").hidden=false;
+ document.getElementById("next").textContent=
+   index===questions.length-1?"Finish lab":"Next question →";
+}
+
+function nextQuestion(){
+ if(!answered)return;
+
+ if(index<questions.length-1){
+   index++;
+   showQuestion();
+ }else{
+   document.getElementById("question").textContent="Lab completed!";
+   document.getElementById("answers").replaceChildren();
+   document.getElementById("feedback").textContent="";
+   document.getElementById("next").hidden=true;
+   document.getElementById("result").textContent=
+     "Your score: "+score+" / "+questions.length;
+   document.getElementById("restart").hidden=false;
+ }
+}
+
+startLab();
+</script>
+</main>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CYBERDEFEND Course</title>
+
+  <style>
+    body {
+      background: #050b14;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .course-box {
+      max-width: 800px;
+      margin: auto;
+      background: #0b1625;
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid #168cff;
+    }
+
+    h1 {
+      color: #168cff;
+    }
+
+    .level {
+      color: #00d9ff;
+      font-size: 18px;
+    }
+
+    button {
+      background: #168cff;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .enroll-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .enroll-form label {
+      display: grid;
+      gap: 6px;
+    }
+
+    .enroll-form input {
+      padding: 10px;
+      border: 1px solid #168cff;
+      border-radius: 4px;
+      background: #050b14;
+      color: white;
+      font: inherit;
+    }
+
+    #enrollStatus {
+      min-height: 1.5em;
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="course-box">
+
+    <h1 id="courseName">Loading...</h1>
+
+    <p class="level" id="courseLevel"></p>
+
+    <h2>What you'll learn</h2>
+
+    <p>
+      Learn practical cybersecurity concepts, tools,
+      networking, security monitoring and defensive techniques.
+    </p>
+
+<form class="enroll-form" onsubmit="enroll(event)">
+  <label>Name<input name="name" autocomplete="name" required></label>
+  <label>Email<input name="email" type="email" autocomplete="email" required></label>
+  <button type="submit">Enroll Now</button>
+  <p id="enrollStatus" role="status" aria-live="polite"></p>
+</form>
+
+  </div>
+
+  <script>
+    const courseId = new URLSearchParams(
+      window.location.search
+    ).get("id");
+
+    fetch("/api/courses/" + courseId)
+      .then(response => response.json())
+      .then(course => {
+
+        document.getElementById("courseName").textContent =
+          course.name;
+
+        document.getElementById("courseLevel").textContent =
+          "Level: " + course.level;
+
+                   });
+
+  async function enroll(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const status = document.getElementById("enrollStatus");
+    const button = form.querySelector("button[type=submit]");
+    button.disabled = true;
+    status.textContent = "Submitting...";
+
+    try {
+      const response = await fetch("/api/enroll", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.elements.name.value.trim(),
+          email: form.elements.email.value.trim(),
+          course: document.getElementById("courseName").textContent
+        })
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.message || "Enrollment failed.");
+      status.textContent = result.message;
+      form.reset();
+    } catch (error) {
+      status.textContent = error.message || "Could not reach the server. Please try again.";
+    } finally {
+      button.disabled = false;
+    }
+  }
+</script>
+
+</body>
+</html>
